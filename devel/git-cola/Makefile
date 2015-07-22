@@ -12,8 +12,6 @@ COMMENT=	Sleek and powerful Git GUI
 LICENSE=	GPLv2
 
 USE_GITHUB=	yes
-GH_ACCOUNT=	git-cola
-GH_PROJECT=	git-cola
 
 USES=		desktop-file-utils gettext gmake python
 INSTALLS_ICONS=	YES
