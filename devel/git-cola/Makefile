@@ -6,7 +6,7 @@ PORTVERSION=	2.2.1
 DISTVERSIONPREFIX=	v
 CATEGORIES=	devel
 
-MAINTAINER=	portsmgr@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Sleek and powerful Git GUI
 
 LICENSE=	GPLv2
