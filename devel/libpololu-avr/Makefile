@@ -3,8 +3,7 @@
 PORTNAME=	libpololu
 PORTVERSION=	140513
 CATEGORIES=	devel
-MASTER_SITES=	http://www.pololu.com/file/download/ \
-		http://www.pololu.com/file/download/
+MASTER_SITES=	http://www.pololu.com/file/download/
 PKGNAMESUFFIX=	-avr
 DISTNAME=	libpololu-avr-140513
 EXTRACT_SUFX=	.zip?file_id=0J757
