@@ -1,11 +1,9 @@
 # $FreeBSD$
 
-PORTNAME=	libpololu
+PORTNAME=	libpololu-avr
 PORTVERSION=	140513
 CATEGORIES=	devel
 MASTER_SITES=	http://www.pololu.com/file/download/
-PKGNAMESUFFIX=	-avr
-DISTNAME=	libpololu-avr-140513
 EXTRACT_SUFX=	.zip?file_id=0J757
 
 MAINTAINER=	jonathan@FreeBSD.org
@@ -18,7 +16,7 @@ BUILD_DEPENDS=	avr-gcc:${PORTSDIR}/devel/avr-gcc \
 
 PREFIX=		${LOCALBASE}/avr
 
-WRKSRC=		${WRKDIR}/libpololu-avr
+WRKSRC=		${WRKDIR}/${PORTNAME}
 MAKE_CMD=	${GMAKE}
 MAKE_ENV=	LIB=${STAGEDIR}${PREFIX}/lib
 ALL_TARGET=	library_files
