@@ -14,6 +14,8 @@ LICENSE=	MIT
 BUILD_DEPENDS=	avr-gcc:${PORTSDIR}/devel/avr-gcc \
 		${LOCALBASE}/avr/lib/libc.a:${PORTSDIR}/devel/avr-libc
 
+USES=		zip
+
 PREFIX=		${LOCALBASE}/avr
 
 WRKSRC=		${WRKDIR}/${PORTNAME}
