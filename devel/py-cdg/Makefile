@@ -1,27 +1,24 @@
 # $FreeBSD$
 
 PORTNAME=	cdg
-PORTVERSION=	0.1.0
+PORTVERSION=	0.1.3
 CATEGORIES=	devel python
-PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+MASTER_SITES=	CHEESESHOP
+#PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	jonathan@FreeBSD.org
 COMMENT=	Library for working with call- and data-flow graphs
 
 LICENSE=	APACHE20
+LICENSE_FILE=	${WRKSRC}/LICENSE
 
-TEST_DEPENDS?=	${PYTHON_PKGNAMEPREFIX}nosetests>0:devel/py-nose
+TEST_DEPENDS?=	${PYTHON_PKGNAMEPREFIX}nose>0:devel/py-nose
 
-USES?=		python
-USE_GITHUB=	yes
-USE_PYTHON=	autoplist distutils
+USES=		python
+USE_PYTHON=	autoplist concurrent distutils
+NO_ARCH=	yes
 
-GH_ACCOUNT=	musec
-GH_PROJECT=	py-cdg
-
-.include <bsd.port.options.mk>
-
-regression-test: build
+do-test:
 	@cd ${WRKSRC} && ${PYTHON_CMD} ${PYDISTUTILS_SETUP} test
 
 .include <bsd.port.mk>
