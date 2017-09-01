@@ -2,11 +2,11 @@
 # $FreeBSD$
 
 PORTNAME=	luakit
-PORTVERSION=	2017.07.26
+PORTVERSION=	2017.08.10
 CATEGORIES=	www
 
 MAINTAINER=	ports@textmail.me
-COMMENT=	Fast, small, webkit based browser framework extensible by Lua
+COMMENT=	Fast, small, webkit2 based browser framework extensible with Lua
 
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/COPYING.GPLv3
@@ -22,11 +22,10 @@ RUN_DEPENDS=	${LUA_PKGNAMEPREFIX}luafilesystem>=0:devel/luafilesystem-51
 
 USES=		desktop-file-utils gettext-runtime gmake lua:51 pkgconfig sqlite
 USE_GITHUB=	yes
-GH_TAGNAME=	${PORTVERSION}
 USE_GNOME=	cairo gdkpixbuf2 glib20 gtk30
 
 NOT_FOR_ARCHS=	sparc64
-ONLY_FOR_ARCHS_REASON_sparc64=	Does not install on sparc64
+NOT_FOR_ARCHS_REASON_sparc64=	Does not install on sparc64
 
 MAKE_ARGS+=	DEVELOPMENT_PATHS=0
 
@@ -39,7 +38,7 @@ LUAJIT_MAKE_ARGS_OFF=	USE_LUAJIT=0
 post-patch:
 	@${REINPLACE_CMD} -e \
 		's|share/man|man| ; s|luakit/doc|doc/luakit| ; \
-		s|/etc/xdg|$(PREFIX)/etc/xdg| ; /MANPREFIX */s|?=|=|' \
+		s|/etc/xdg|${PREFIX}/etc/xdg| ; /MANPREFIX */s|?=|=|' \
 		${WRKSRC}/config.mk
 	@${REINPLACE_CMD} -e 's|bin/env lua|&${LUA_VER_STR}|' \
 		${WRKSRC}/build-utils/gentokens.lua

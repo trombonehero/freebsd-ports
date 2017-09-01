@@ -13,17 +13,16 @@ COMMENT=		Fast and correct build system
 LICENSE=		APACHE20
 LICENSE_FILE=		${WRKSRC}/LICENSE
 
+BROKEN_armv6=		fails to package: cp: bazel: No such file or directory
+
 BUILD_DEPENDS=		bash:shells/bash \
 			zip:archivers/zip
-
-BROKEN_armv6=		fails to package: cp: bazel: No such file or directory
 
 # In bazel, a release is always code-wise identical to the final release candidate.
 # Hence we can also download that one and so have a simple way to also test earlier release
 # candidates.
 FINALRC=		4
 
-NO_WRKSUBDIR=		YES
 USES=			shebangfix zip
 SHEBANG_REGEX=		.*(sh|txt|_stub|stub_.*|bazel|get_workspace_status|protobuf_support|_so)
 USE_JAVA=		yes
@@ -32,12 +31,22 @@ JAVA_VERSION=		1.8
 JAVA_BUILD=		yes
 JAVA_RUN=		yes
 
+NO_WRKSUBDIR=		YES
+
 CONFLICTS_INSTALL?=	bazel-clang38
 
 OPTIONS_DEFINE=	CLANG38
 CLANG38_DESC=	Use clang38 as default crosstool
 CLANG38_BUILD_DEPENDS=	clang38:devel/llvm38
 CLANG38_RUN_DEPENDS=	clang38:devel/llvm38
+
+STRIP=	# The bazel binary is also a zip archive (extracted by the elf part), it must not be stripped
+
+.include <bsd.port.pre.mk>
+
+.if ${ARCH} == "i386"
+EXTRA_PATCHES=	${FILESDIR}/extra-i386_src_BUILD
+.endif
 
 # Have the location of the system-wide rc file reside ${ETCDIR}.
 # Also adapt the sample file to disable persistent java workers as they
@@ -66,9 +75,8 @@ do-build:
 	${LOCALBASE}/bin/bash ./compile.sh)
 
 do-install:
-	# The bazel binary is also a zip archive (extracted by the elf part), hence cannot be stripped
-	${CP} ${WRKSRC}/output/bazel ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_PROGRAM} ${WRKSRC}/output/bazel ${STAGEDIR}${PREFIX}/bin
 	@${MKDIR} ${STAGEDIR}${ETCDIR}
 	${INSTALL_DATA} ${WRKSRC}/scripts/packages/debian/bazel.bazelrc ${STAGEDIR}${ETCDIR}/bazel.bazelrc.sample
 
-.include <bsd.port.mk>
+.include <bsd.port.post.mk>

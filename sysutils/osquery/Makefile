@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	osquery
-PORTVERSION=	2.6.0
+PORTVERSION=	2.7.0
 CATEGORIES=	sysutils
 
 MAINTAINER=	zi@FreeBSD.org
@@ -15,6 +15,7 @@ BUILD_DEPENDS=	thrift>0:devel/thrift \
 		bash>0:shells/bash \
 		linenoise-ng>0:devel/linenoise-ng \
 		asio>0:net/asio \
+		rapidjson>0:devel/rapidjson \
 		${PYTHON_PKGNAMEPREFIX}Jinja2>0:devel/py-Jinja2
 LIB_DEPENDS=	libaugeas.so:textproc/augeas \
 		libboost_regex.so:devel/boost-libs \
@@ -41,7 +42,7 @@ USE_GITHUB=	yes
 GH_ACCOUNT=	facebook ${PORTNAME}:tp
 GH_PROJECT=	third-party:tp
 GH_SUBDIR=	third-party:tp
-GH_TAGNAME=	2.5.2:tp
+GH_TAGNAME=	${PORTVERSION}:tp
 
 # Some options for things that bring in many dependencies
 OPTIONS_DEFINE=	TSK AWS YARA LLDPD

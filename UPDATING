@@ -5,6 +5,86 @@ they are unavoidable.
 You should get into the habit of checking this file for changes each time
 you update your ports collection, before attempting any port upgrades.
 
+20170828
+  AFFECTS: users of security/gnupg
+  AUTHOR: adamw@FreeBSD.org
+
+  security/gnupg22 has become the new stable version of GnuPG. This is
+  an LTS branch, and is directly analogous to security/gnupg20. gnupg20
+  will reach EOL at the end of the year, and all gnupg20 users should
+  migrate to gnupg22.
+
+  See https://gnupg.org/faq/whats-new-in-2.1.html for important changes.
+
+  The security/gnupg port will become GnuPG 2.3.x soon.
+
+20170820:
+  AFFECTS: users of www/uwsgi
+  AUTHOR: ultima@FreeBSD.org
+
+  The default socket owner and mode had been changed from www:www 600
+  to uwsgi:www 660. This should resolve issue #1471[1] on github.
+
+  [1] https://github.com/unbit/uwsgi/issues/1471
+
+20170808:
+  AFFECTS: users of lang/ghc and */hs-*
+  AUTHOR: haskell@FreeBSD.org
+
+  The Glorious Glasgow Haskell Compiler has been updated to version
+  8.0.2.  Hence it is recommended to rebuild or reinstall all the
+  dependent ports and the lang/ghc port itself in one of the following
+  ways:
+
+  # portmaster -w -r ghc
+    or
+  # portupgrade -fr lang/ghc
+
+  In case of pkg(8), it is probably safer to remove all the GHC-dependent
+  packages along with GHC and reinstall everything from scratch.  For
+  example:
+
+  # pkg query "%ro" ghc > ghc-pkgs.txt
+  # pkg delete -y lang/ghc
+
+  In ghc-pkgs.txt, check and remove all the packages that have been moved
+  on the update, then use this command:
+
+  # pkg install -y `cat ghc-pkgs.txt`
+
+20170807:
+  AFFECTS: users of mail/dovecot2 and mail/dovecot2-pigeonhole
+  AUTHOR: adamw@FreeBSD.org
+
+  Now that dovecot1 has been removed from the ports tree, dovecot2
+  and dovecot2-pigeonhole have been renamed to simply dovecot and
+  dovecot-pigeonhole.
+
+  pkg should handle the rename automatically, but if you run into
+  trouble, you can point pkg at the new origin via:
+
+  # pkg set -o mail/dovecot2:mail/dovecot
+  # pkg set -o mail/dovecot2-pigeonhole:mail/dovecot-pigeonhole
+
+  Similarly, you can point portmaster at the new location via:
+
+  # portmaster -o mail/dovecot mail/dovecot2
+
+  If all else fails, just remove and reinstall the package:
+
+  # pkg delete dovecot2
+  # pkg install dovecot
+
+20170806:
+  AFFECTS: users of mail/dovecot2-antispam-plugin
+  AUTHOR: adamw@FreeBSD.org
+
+  Development of the antispam plugin ceased years ago, and upstream
+  recommends using pigeonhole (mail/dovecot2-pigeonhole) instead.
+
+  See https://wiki2.dovecot.org/HowTo/AntispamWithSieve for a recipe
+  to replicate the antispam plugin's behaviour.
+
 20170803:
   AFFECTS: users of net/guacamole-client
   AUTHOR: ultima@FreeBSD.org
